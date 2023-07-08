@@ -13,13 +13,13 @@ function renderLogin() {
                 <input required class="input" type="email" name="email" id="login-email-input" placeholder="Email">
                 <img src="./assets/img/email-icon.png">
             </div>
-            <div id="wrongEmail">
+            <div class="wrong" id="wrongEmail">
             </div>
             <div class="input-field">
                 <input required class="input togglePassword" type="password" name="password" id="login-password-input" placeholder="Password">
                 <img class="toogleImage" onclick="togglePassword()" src="./assets/img/password-icon.png">
             </div>
-            <div id="wrongPassword">
+            <div class="wrong" id="wrongPassword">
             </div>
         </div>
         <div class="remember-check">

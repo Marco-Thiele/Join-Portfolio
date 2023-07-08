@@ -122,12 +122,12 @@ function newTitleSave(todo) {
  * @param {object} todo 
  */
 function contactChoosed(todo) {
-    if (choosedContact.length === 0) {
+   /* if (choosedContact.length === 0) {
         for (let i = 0; i < todo['contact'].length; i++) {
             const element = todo['contact'][i];
             choosedContact.push(element);
         }
-    }
+    }*/
     if (!todo.contact.includes(todo.contact)) {
         todo.contact = choosedContact
     }

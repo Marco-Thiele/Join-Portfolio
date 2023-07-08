@@ -254,6 +254,10 @@ h1 {
     animation-fill-mode: forwards;
 }
 
+.wrong{
+    color: red;
+}
+
 @keyframes moveJoinLogo {
     from {
         /* Um das Logo mittig zu platzieren, muss man die hälfte der Breite abziehen */

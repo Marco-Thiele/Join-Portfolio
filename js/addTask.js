@@ -379,43 +379,28 @@ function displayChosenContactsForTask() {
 
 /**This function sorts the contact names into two letters*/
 function showContactsByTwoLetters() {
-    for (let i = 0; i < choseContacts.length; i++) {
-        let chosenContact = choseContacts[i];
-        const firstLetter = chosenContact.charAt(0).toUpperCase();
-        const remainingLetters = chosenContact.slice(1);
-        contactName = firstLetter + remainingLetters;
-        contactColor = getUserColor(i);
-        arrayContactColor.push(contactColor);
-        if (chosenContact.indexOf(' ') >= 0) {
-            let helpLetter = contactName.split(" ");
-            newLetters2 = helpLetter[0].charAt(0).toUpperCase() + helpLetter[1].charAt(0).toUpperCase();
-            selectedContactLetters.push(newLetters2);
-        } else {
-            newLetters2 = firstLetter;
-            selectedContactLetters.push(newLetters2);
-        }
-    }
+    document.getElementById('circleContactsContainer').innerHTML = "";
+    const user = userAccounts[activeUser].userContacts;
+    const userWithContacts = user.filter(({ name }) => choseContacts.includes(name));
+    userWithContacts.forEach((user, index) => {
+        let letters = user.letters
+        const colorUser = user.color;
+        renderNamesInTwoLetters(colorUser, letters, index);
+    });   
 }
 
 /** show Contact name in two letters in a Circle with a background color*/
 function renderCircleName() {
-    showContactsByTwoLetters();
-    document.getElementById('circleContactsContainer').innerHTML = "";
-    for (let i = 0; i < selectedContactLetters.length; i++) {
-        const letters = selectedContactLetters[i];
-        const bgContactColor = arrayContactColor[i];
-        renderNamesInTwoLetters(bgContactColor, letters);
-    }
+    showContactsByTwoLetters(); 
     selectedContactLetters.splice(0);
     newAddedContactLetters.splice(0);
     newContacts.splice(0);
-    arrayContactColor.splice(0);
 }
 
 /**HTML-templates for renderCircleName() */
-function renderNamesInTwoLetters(bgContactColor, letters) {
+function renderNamesInTwoLetters(bgContactColor, letters, i) {
     return document.getElementById('circleContactsContainer').innerHTML += `
-    <div class="circleContact" id="circleContact" style="background-color: ${bgContactColor} !important">  ${letters}
+    <div class="circleContact" id="circleContact${i}" style="background-color: ${bgContactColor} !important">  ${letters}
     </div>
     `;
 }
@@ -452,6 +437,7 @@ function addSubTask() {
     if (subtaskInput.value != "") {
         let subTask = subtaskInput.value;
         subTasks.push(subTask);
+        chooseSubtasks();
         renderSubtasks();
     }
     subtaskInput.value = "";
@@ -480,7 +466,7 @@ function renderSubtasks() {
         const showSubTask = subTasks[i];
         appendixSubtask.innerHTML += /*html*/`
             <label class="container">
-                <input type="checkbox" class="checkedSubTasks" onclick="chooseSubtasks()" value="${showSubTask}" />
+                <input type="checkbox" class="checkedSubTasks" onclick="chooseSubtasks()" value="${showSubTask}" checked />
                 <span class="checkmark" id="checkmark${i}"></span>
                 <div class="subtaskCheck">${showSubTask}</div>
             </label>
@@ -538,6 +524,7 @@ async function addTask() {
  * This function was called on AddTask Main Page
  */
 async function addTaskToBoard() {
+    chooseSubtasks();
     await addTask();
     if (p == true) {
         annimationTaskAddedToBoard();
@@ -553,6 +540,7 @@ async function addTaskToBoard() {
  * This function was called on Board Page and Contact Page
  */
 async function addTaskOnSubPages() {
+    chooseSubtasks();
     await addTask();
     if (p == true) {
         document.getElementById('bg').style.display = 'none';
@@ -845,7 +833,7 @@ function closePopOutAddTask() {
  * @returns - hex-code of the color user
  */
 function getUserColor(userIndex) {
-    const colorUser = userAccounts[activeUser]['userContacts'][userIndex]['color'];
+    
     return colorUser;
 }
 
