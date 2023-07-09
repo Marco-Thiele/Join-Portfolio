@@ -389,3 +389,7 @@ textarea {resize: none;}
     justify-content: space-evenly;
     display: none;
 }
+
+.checkprio{
+    color: red;
+}

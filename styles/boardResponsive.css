@@ -365,7 +365,7 @@
         font-size: 16px !important;
     }
 
-    .assignedList {
+    .assignedListBoard {
         padding-left: 21px;
         padding-right: 21px;
         width: 90% !important;
@@ -388,6 +388,10 @@
     .search-input-small {
         width: 150px;
         background-position-x: 120px;
+    }
+
+    .assignedContactBoard{
+        font-size: 15px;
     }
 
     .assigned-to-board {

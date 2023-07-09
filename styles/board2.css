@@ -92,7 +92,7 @@
     cursor: pointer;
 }
 
-.assignedList {
+.assignedListBoard {
     box-sizing: border-box;
     width: 100%;
     height: 150px;
@@ -139,7 +139,7 @@
     outline: none;
 }
 
-.assignedContact {
+.assignedContactBoard {
     box-sizing: border-box;
     width: 100%;
     height: 30px;
@@ -190,4 +190,12 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.no-task{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: red;
+    font-size: 22px;
 }

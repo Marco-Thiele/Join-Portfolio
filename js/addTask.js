@@ -55,7 +55,8 @@ function renderCategory() {
     let categoryList = document.getElementById('categoryList');
     categoryList.innerHTML = `<div class="categoryAndColor" onclick=" newCategoryInput()" >
     <div>New category</div>
-    </div>`;
+    </div>
+`;
     for (let i = 1; i < categories.length; i++) {
         const category = categories[i]['category'];
         const color = categories[i]['color'];
@@ -66,6 +67,35 @@ function renderCategory() {
         </div>
         `;
     }
+    categoryList.innerHTML += `    <div class="categoryAndColor" onclick=" deleteCategoryAddTask()" >
+    <div>Delete category</div>
+    </div>`;
+
+}
+
+
+function deleteCategoryAddTask() {
+    let categories = userAccounts[activeUser].userCategory;
+    let categoryList = document.getElementById('categoryList');
+    categoryList.innerHTML = '';
+    for (let i = 0; i < categories.length; i++) {
+        const category = categories[i]['category'];
+        const color = categories[i]['color'];
+        categoryList.innerHTML += `
+        <div class="categoryAndColor" onclick="deleteThisCategory(${i})" >
+            <div>${category}</div>
+            <div class="color"  style="background-color:${color}"></div>
+        </div>
+        `;
+    }
+}
+
+
+async function deleteThisCategory(i) {
+    let categories = userAccounts[activeUser].userCategory;
+    categories.splice(i, 1);
+    await saveUserAccountsToBackend();
+    renderCategory()
 }
 
 /**This function set Category InputField to default as in beginning with a placholder and a drop down Button*/
@@ -386,12 +416,12 @@ function showContactsByTwoLetters() {
         let letters = user.letters
         const colorUser = user.color;
         renderNamesInTwoLetters(colorUser, letters, index);
-    });   
+    });
 }
 
 /** show Contact name in two letters in a Circle with a background color*/
 function renderCircleName() {
-    showContactsByTwoLetters(); 
+    showContactsByTwoLetters();
     selectedContactLetters.splice(0);
     newAddedContactLetters.splice(0);
     newContacts.splice(0);
@@ -524,6 +554,7 @@ async function addTask() {
  * This function was called on AddTask Main Page
  */
 async function addTaskToBoard() {
+    document.getElementById('checkprio').classList.add('d-none');
     chooseSubtasks();
     await addTask();
     if (p == true) {
@@ -540,6 +571,7 @@ async function addTaskToBoard() {
  * This function was called on Board Page and Contact Page
  */
 async function addTaskOnSubPages() {
+    document.getElementById('checkprio').classList.add('d-none');
     chooseSubtasks();
     await addTask();
     if (p == true) {
@@ -550,10 +582,10 @@ async function addTaskOnSubPages() {
         closeDropDownAssignTo();
         choseContacts = [];
         updateHTML();
-        selectedSubtasks= [];
+        selectedSubtasks = [];
         p = false;
     }
-  
+
 }
 
 /** This function decides with the priority background color which Priority has been activated and get all the inputs of the one priority box*/
@@ -621,9 +653,7 @@ function annimationTaskAddedToBoard() {
     setTimeout(function () {
         document.getElementById('addTaskBtn').classList.add('buttonEnabled');
     }, 4000)
-    setTimeout(function () {
-        window.location = "./board.html";
-    }, 3600)
+   
 }
 
 /**
@@ -635,14 +665,14 @@ function annimationTaskAddedToBoardForPopOut() {
     document.getElementById('messageAddedTask').classList.add('animate');
     setTimeout(function () {
         document.getElementById('messageAddedTask').style.display = "none";
-    }, 3900)
+    }, 2000)
     document.getElementById('addTaskBtn').classList.add('buttonDisabled');
     setTimeout(function () {
         document.getElementById('addTaskBtn').classList.add('buttonEnabled');
     }, 4000)
     setTimeout(function () {
         closePopOutAddTask();
-    }, 3600)
+    }, 2000)
 }
 
 /**
@@ -654,7 +684,7 @@ function annimationTaskAddedToBoardForPopOut() {
 function generateTaskId(tasks) {
     if (tasks.length == 0) {
         id = 0;
-    } else{
+    } else {
         var id = tasks.length;
         var idExists = true;
         while (idExists) {
@@ -833,7 +863,7 @@ function closePopOutAddTask() {
  * @returns - hex-code of the color user
  */
 function getUserColor(userIndex) {
-    
+
     return colorUser;
 }
 
@@ -862,16 +892,16 @@ function filterContact() {
  * this function delete the category from the user after the input number of the category
  * @param {number} number - this is the activUser category-array number 
  */
-async function deleteCategory(number){
-let user = userAccounts[activeUser]['userCategory'];
-for (let i = 0; i < user.length; i++) {
-    if (i === number) {
-        user.splice(i, 1);
-        break;
+async function deleteCategory(number) {
+    let user = userAccounts[activeUser]['userCategory'];
+    for (let i = 0; i < user.length; i++) {
+        if (i === number) {
+            user.splice(i, 1);
+            break;
+        }
     }
-}
-await saveTasksToBackend()
-await saveUserAccountsToBackend();
-closeOverlay();
-updateHTML();
+    await saveTasksToBackend()
+    await saveUserAccountsToBackend();
+    closeOverlay();
+    updateHTML();
 }

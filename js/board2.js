@@ -1,9 +1,9 @@
- /**
- * Close the dropdown container from category
- * 
- */
+/**
+* Close the dropdown container from category
+* 
+*/
 function closeDropdownCategoryBoard() {
-    let categoryInputContainer = document.getElementById('inputContainer'); 
+    let categoryInputContainer = document.getElementById('inputContainer');
     let categoryList = document.getElementById('categoryList');
     categoryList.style.display = "none";
     categoryInputContainer.style.border = "1px solid #D1D1D1";
@@ -19,8 +19,8 @@ function closeDropdownCategoryBoard() {
 async function renderAssignToBoard(cards) {
     let user = userAccounts[activeUser]['userTasks'];
     let todo = user.find((item) => item.id === cards);
-    let assignedContactList = document.getElementById('assignedList'); 
-    assignedContactList.innerHTML = ""; 
+    let assignedContactList = document.getElementById('assignedList');
+    assignedContactList.innerHTML = "";
     let users = userAccounts[activeUser]['userContacts'];
     renderAssignToBoardContacts(users, assignedContactList, todo)
 }
@@ -60,10 +60,15 @@ function chooseContactBoard(name, cards) {
     let allChekbox = document.querySelectorAll('.checkboxForContacts');
     for (let i = 0; i < allChekbox.length; i++) {
         const checkbox = allChekbox[i];
-        if (checkbox.checked) {
-            choosedContact.push(checkbox.value);
-            renderContactsOverlayChange(todo);
-        }
+        chooseContactOverlayChange(checkbox, todo);
+    }
+}
+
+
+function chooseContactOverlayChange(checkbox, todo) {
+    if (checkbox.checked) {
+        choosedContact.push(checkbox.value);
+        renderContactsOverlayChange(todo);
     }
 }
 
@@ -88,7 +93,7 @@ async function saveInputTask(cards) {
     await saveAndNewRender(cards)
 }
 
- 
+
 /**
  * Show Overlay and update HTML
  * 
@@ -122,12 +127,12 @@ function newTitleSave(todo) {
  * @param {object} todo 
  */
 function contactChoosed(todo) {
-   /* if (choosedContact.length === 0) {
-        for (let i = 0; i < todo['contact'].length; i++) {
-            const element = todo['contact'][i];
-            choosedContact.push(element);
-        }
-    }*/
+    /* if (choosedContact.length === 0) {
+         for (let i = 0; i < todo['contact'].length; i++) {
+             const element = todo['contact'][i];
+             choosedContact.push(element);
+         }
+     }*/
     if (!todo.contact.includes(todo.contact)) {
         todo.contact = choosedContact
     }
@@ -173,7 +178,7 @@ function setPriority(todo, priority, priorityImg) {
  * Save the priority
  * 
  * @param {object} todo 
- */ 
+ */
 function prioritySave(todo) {
     const { priority, priorityImg } = getPriority();
     setPriority(todo, priority, priorityImg);
@@ -235,7 +240,7 @@ async function changeProgressbar(cards) {
     if (todo.subTask.length == 0) {
         contant.classList.add('d-none');
     }
-    if ( todo.subTask.length > 0) {
+    if (todo.subTask.length > 0) {
         document.getElementById(`progress${cards}`).style.backgroundColor = "#F4F4F4";
     }
 }
@@ -246,18 +251,15 @@ async function changeProgressbar(cards) {
  * 
  */
 function filterHtml() {
+    document.getElementById('noTask').classList.add('d-none');
     let { search } = chooseSearchInput();
     search = search.toLowerCase();
     let title = userAccounts[activeUser]['userTasks'];
     let text = userAccounts[activeUser]['userTasks'];
-    for (let i = 0; i < title.length; i++) {
-        let element = title[i]['title'];
-        let description = text[i]['description'];
-        element = element.toLowerCase();
-        description = description.toLowerCase();
-        if (element.includes(search) || description.includes(search)) {
-            renderfilter(search, i)
-        } }
+    renderSearchFilter(title, text, search);
+    if (filterCount == 0)
+        document.getElementById('noTask').classList.remove('d-none');
+    filterCount = 0
 }
 
 /**
@@ -265,14 +267,29 @@ function filterHtml() {
  * 
  * @returns 
  */
-function chooseSearchInput(){
+function chooseSearchInput() {
     if (window.innerWidth <= 640) {
         var search = document.getElementById('searchSmall').value;
     } else {
         var search = document.getElementById('search').value;
     }
-    return {search}
-} 
+    return { search }
+}
+
+
+
+function renderSearchFilter(title, text, search) {
+    for (let i = 0; i < title.length; i++) {
+        let element = title[i]['title'];
+        let description = text[i]['description'];
+        element = element.toLowerCase();
+        description = description.toLowerCase();
+        if (element.includes(search) || description.includes(search)) {
+            renderfilter(search, i);
+            filterCount++;
+        }
+    }
+}
 
 
 /**

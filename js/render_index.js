@@ -86,7 +86,7 @@ function renderForgotPassword() {
                 <input required class="input" type="email" name="email" id="forgot-email-input" placeholder="Email">
                 <img src="./assets/img/email-icon.png">
             </div>
-            <div id="newPassword">
+            <div class="newPassword" id="newPassword">
             </div>
             <button class="btn-dark">Send me the email</button>
         </div>

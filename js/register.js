@@ -34,10 +34,17 @@ function pushNewUser(name, email, password, userId, userInitials, userColor) {
     userColor: userColor,
     userContacts: [],
     userTasks: [],
-    userCategory:[]
+    userCategory: []
 
   };
   userAccounts.push(newUser);
+}
+
+
+function deleteUser(i) {
+  let user = userAccounts
+  user.splice(i,1);
+  saveUserAccountsToBackend();
 }
 
 

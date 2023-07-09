@@ -195,7 +195,6 @@ async function changeCategoryUp(cards){
     }else if (todo.progress == 'Done') {
         todo.progress = 'Awaiting Feedback'
     }
-    await saveTasksToBackend()
     await saveUserAccountsToBackend();
     updateHTML()
 }
@@ -218,7 +217,6 @@ async function changeCategoryDown(cards){
     }else if (todo.progress == 'Done') {
         todo.progress = 'To Do'
     }
-    await saveTasksToBackend()
     await saveUserAccountsToBackend();
     updateHTML()
 }

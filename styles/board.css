@@ -245,7 +245,7 @@ h2 {
     padding-right: 70px;
     gap: 25px;
     width: 562px;
-    z-index: 5;
+    z-index: 15;
     background: #FFFFFF;
     border-radius: 30px;
     position: absolute;

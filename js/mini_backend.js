@@ -112,7 +112,7 @@ function determineProxySettings() {
 
 /**
  * Saves a JSON or JSON Array to the Server
- */
+ *//*
 function saveJSONToServer() {
     return new Promise(function(resolve, reject) {
         let xhttp = new XMLHttpRequest();
@@ -145,4 +145,4 @@ function determineProxySettings() {
     } else {
         return 'https://cors-anywhere.herokuapp.com/';
     }
-}
+}*/

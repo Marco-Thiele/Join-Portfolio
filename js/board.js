@@ -6,6 +6,7 @@ let toDoCount= [];
 let inProgressCount= [];
 let awaitingCount= [];
 let doneCount= [];
+let filterCount = 0;
 
 
 function onloadBoard() {
@@ -66,18 +67,14 @@ function emptyArrays(){
  * 
  */
 function updateHTMLNon(){
-    if (toDoCount.length == 0) {
+    if (toDoCount.length == 0) 
         document.getElementById('toDoContent').innerHTML = `<div class="no-cards"> No Task in To Do </div>`;
-    }
-    if (inProgressCount.length == 0) {
+    if (inProgressCount.length == 0) 
         document.getElementById('inProgressContent').innerHTML = `<div class="no-cards"> No Task in Progress </div>`;
-    }
-    if (awaitingCount.length == 0) {
+    if (awaitingCount.length == 0) 
         document.getElementById('awaitingFeedbackContent').innerHTML = `<div class="no-cards"> No Task in Awaiting Feedback </div>`;
-    }
-    if (doneCount.length == 0) {
+    if (doneCount.length == 0) 
         document.getElementById('doneContent').innerHTML = `<div class="no-cards"> No Task in Done </div>`;
-    }
 }
 
 // 

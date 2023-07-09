@@ -402,3 +402,7 @@ input[type=date]:invalid::-webkit-datetime-edit {color: #D1D1D1;}
     left: 0px;
     z-index: 13;
 }
+
+.checkprio{
+    color: red;
+}

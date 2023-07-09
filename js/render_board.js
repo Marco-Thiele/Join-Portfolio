@@ -103,8 +103,7 @@ function showOverlayChangeHTML1(todo){
              Title
             <input id="inputTittle" type=text class="input-chances-title" placeholder="${(todo.title)}">
          </div>
-         <div class="close-icon-change">
-             <img onclick="closeOverlay()" src="assets/img/close-overlay.svg">
+         <div class="close-icon-change">          
          </div>
      </div>
      <div class="width-chances">
@@ -158,7 +157,7 @@ function showOverlayChangeHTML4(cards){
     <div id="assignDropDown" class="buttonOpenCloseBoard" onclick="dropDownAssignToBoard(${cards})"><img
     src="assets/img/dropdown-arrow.png"></div>
     </div>
-    <div id="assignedList" class="assignedList"></div>
+    <div id="assignedList" class="assignedListBoard"></div>
     </div>
     <div class="display" id="contactOverlayChange">
     </div>
@@ -172,7 +171,7 @@ function showOverlayChangeHTML4(cards){
 
 function renderAssignToBoardContactsHTML(userName, checkedAttribute, todo){
     return `
-    <div class="assignedContact" >
+    <div class="assignedContactBoard" >
         <div>${userName}</div>
         <label class="filledCheckboxContainer">
             <input type="checkbox" class="checkboxForContacts" value="${userName}" ${checkedAttribute} onclick="chooseContactBoard('${userName}', ${todo['id']})">
