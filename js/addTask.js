@@ -25,6 +25,7 @@ let newContacts = [];
 let newAddedContactLetters = [];
 let arrayContactColor = [];
 let helpVarSumit = false;
+let newCategoryColor;
 
 /**global variable for addTask() function */
 let title;
@@ -53,24 +54,13 @@ function onloadAddTask() {
 function renderCategory() {
     let categories = userAccounts[activeUser].userCategory;
     let categoryList = document.getElementById('categoryList');
-    categoryList.innerHTML = `<div class="categoryAndColor" onclick=" newCategoryInput()" >
-    <div>New category</div>
-    </div>
-`;
-    for (let i = 1; i < categories.length; i++) {
+    categoryList.innerHTML = renderCategoryHTML();
+    for (let i = 0; i < categories.length; i++) {
         const category = categories[i]['category'];
         const color = categories[i]['color'];
-        categoryList.innerHTML += `
-        <div class="categoryAndColor" onclick="chooseCategory(${i}, '${category}', '${color}')" >
-            <div>${category}</div>
-            <div class="color"  style="background-color:${color}"></div>
-        </div>
-        `;
+        categoryList.innerHTML += renderCategoryHTML2(i, category, color);
     }
-    categoryList.innerHTML += `    <div class="categoryAndColor" onclick=" deleteCategoryAddTask()" >
-    <div>Delete category</div>
-    </div>`;
-
+    categoryList.innerHTML += renderCategoryHTML3();
 }
 
 
@@ -81,12 +71,7 @@ function deleteCategoryAddTask() {
     for (let i = 0; i < categories.length; i++) {
         const category = categories[i]['category'];
         const color = categories[i]['color'];
-        categoryList.innerHTML += `
-        <div class="categoryAndColor" onclick="deleteThisCategory(${i})" >
-            <div>${category}</div>
-            <div class="color"  style="background-color:${color}"></div>
-        </div>
-        `;
+        categoryList.innerHTML += deleteCategoryAddTaskHTML(i, category, color)
     }
 }
 
@@ -97,6 +82,7 @@ async function deleteThisCategory(i) {
     await saveUserAccountsToBackend();
     renderCategory()
 }
+
 
 /**This function set Category InputField to default as in beginning with a placholder and a drop down Button*/
 function unsetCategoryInputField() {
@@ -170,7 +156,7 @@ function newCategoryInput() {
 /**
  *  This function gets the background color for the new category color dot
 */
-var newCategoryColor;
+
 function newColor(color) {
     document.getElementById('color').style.background = color;
     newCategoryColor = color;
@@ -181,24 +167,44 @@ function newColor(color) {
  */
 async function addNewCategory() {
     var newCategory = document.getElementById('input');
+    changeCategoryField(newCategory);
+    categoriesArray.push(newCategory.value);
+    if (newCategory !== '') {
+        saveNewCategory(newCategory);
+    }
+    j = false;
+}
+
+/**
+ * Close the categoryfield
+ * 
+ * @param {string} newCategory 
+ */
+function changeCategoryField(newCategory) {
     categoriesArray.push(newCategory.value);
     document.getElementById('newCategoryColorsBox').style.display = "none";
     document.getElementById('newCategoryInput').style.display = "none";
     document.getElementById('buttonDropDown').style.display = "flex";
     document.getElementById('color').style.background = newCategoryColor;
     colorsArray.push(newCategoryColor);
-    if (newCategory !== '') {
-        let newCategories = {
-            'category': newCategory.value,
-            'color': newCategoryColor
-        }
-        let category = userAccounts[activeUser].userCategory;
-        category.push(newCategories);
-        saveUserAccountsToBackend();
-    }
-
-    j = false;
 }
+
+
+/**
+ * Save the new category
+ * 
+ * @param {string} newCategory 
+ */
+async function saveNewCategory(newCategory) {
+    let newCategories = {
+        'category': newCategory.value,
+        'color': newCategoryColor
+    }
+    let category = userAccounts[activeUser].userCategory;
+    category.push(newCategories);
+    saveUserAccountsToBackend();
+}
+
 
 /*** The function returns the Category Container to the default */
 function rejectNewCategory() {
@@ -228,32 +234,6 @@ async function renderAssignTo() {
     assignedContactList.innerHTML += templateRenderAssignToNewContact();
 }
 
-/**
- * This function is a HTML-template to render the assigned contacts
- * @param {string} userName - the name of the assigned contact at certain index
- * @returns - the contact names
- */
-function templateRenderAssignToContacts(userName) {
-    return /*html*/`
-    <div class="assignedContact" >
-        <div>${userName}</div>
-        <label class="filledCheckboxContainer">
-            <input type="checkbox" class="checkboxForContacts" value="${userName}" onclick="chooseContact('${userName} ')">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-    `;
-}
-
-/** This function is a HTML-template to render the invite new contact Text and it's image*/
-function templateRenderAssignToNewContact() {
-    return /*html*/`
-    <div class="assignedContact" onclick="assignToInput()">
-        <div>invite new contacts</div>
-        <img src="assets/img/new_contact.png" class="newContactImg">
-    </div>
-`;
-}
 
 /**
  * This function allows user to choose the contact with the checkbox - the check marked contact is showing below in a cirle
@@ -266,12 +246,12 @@ function chooseContact(name) {
     let allChekbox = document.querySelectorAll('.checkboxForContacts');
     for (let i = 0; i < allChekbox.length; i++) {
         const checkbox = allChekbox[i];
-        if (checkbox.checked) {
+        if (checkbox.checked)
             choseContacts.push(checkbox.value);
-        }
         displayChosenContactsForTask();
     }
 }
+
 
 /**
  * This function render the check marked contacts
@@ -291,36 +271,7 @@ async function renderAssignToCheckMarked() {
     assignedContactList.innerHTML += renderAssignToCheckMarkedHTMLNewContact();
 }
 
-/**
- * HTML-Template for render the check marked contacts
- * @param {string} userName - contact name
- * @param {true/false} checkedAttribute - checkbox true or false
- * @returns - HTML Code of name and checked attribute of checkbox
- */
-function renderAssignToCheckMarkedHTML(userName, checkedAttribute) {
-    return `
-    <div class="assignedContact" >
-        <div>${userName}</div>
-        <label class="filledCheckboxContainer">
-            <input type="checkbox" class="checkboxForContacts" value="${userName}" ${checkedAttribute} onclick="chooseContact('${userName} ')">
-                <span class="checkmark"></span>
-        </label>
-    </div>
-    `;
-}
 
-/**
- * HTML-Template for render new contact
- * @returns 
- */
-function renderAssignToCheckMarkedHTMLNewContact() {
-    return /*html*/`
-    <div class="assignedContact" onclick="assignToInput()">
-            <div>invite new contacts</div>
-            <img src="assets/img/new_contact.png" class="newContactImg">
-        </div>
-    `;
-}
 
 /**Show AssignTo Select Menu - toggle at clicking on the dropdown Button*/
 function dropDownAssignTo() {
@@ -335,6 +286,7 @@ function dropDownAssignTo() {
     closeDropdownCategory();
 }
 
+
 /*** close the dropdown AssignTo Menu*/
 function closeDropDownAssignTo() {
     var assignedList = document.getElementById('assignedList');
@@ -344,6 +296,7 @@ function closeDropDownAssignTo() {
     assignToInputContainer.style.borderRadius = "10px";
     document.getElementById('circleContactsContainer').style.display = "flex";
 }
+
 
 /**open the dropdown AssignTo Menu*/
 function showDropDownAssignTo() {
@@ -360,16 +313,6 @@ function showDropDownAssignTo() {
     }
 }
 
-/**This function is used for invite new contact via an Email to assign into the Kanban Project Managment Tool*/
-function assignToInput() {
-    helpVarSumit = true;
-    document.getElementById('assignedList').innerHTML = `<form action="/Join/send-email.php" method="post">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email placeholder="email"">
-    <button type="submit" onclick="showEmailSentStatus()">Submit</button>
-    </form>`;
-    document.getElementById('assignedList').style.display = "block !important";
-}
 
 /**
  * This function allows to set the AssignTo input field to default style
@@ -383,10 +326,12 @@ function rejectAssignTo() {
     document.getElementById('circleContactsContainer').style.display = "flex";
 }
 
+
 /**This function call the other function which shows the e-mail has been sent to the new contact*/
 function addnewContact() {
     showEmailSentStatus();
 }
+
 
 /**This function shows the email sent status in a Box*/
 function showEmailSentStatus() {
@@ -401,11 +346,13 @@ function showEmailSentStatus() {
     `;
 }
 
+
 /** This function shows the chosen contacts under AssignTo-box in a filled cirlce of two letters for each chosen contact */
 function displayChosenContactsForTask() {
     document.getElementById('circleContactsContainer').style.display = "flex";
     renderCircleName();
 }
+
 
 /**This function sorts the contact names into two letters*/
 function showContactsByTwoLetters() {
@@ -419,6 +366,7 @@ function showContactsByTwoLetters() {
     });
 }
 
+
 /** show Contact name in two letters in a Circle with a background color*/
 function renderCircleName() {
     showContactsByTwoLetters();
@@ -427,13 +375,6 @@ function renderCircleName() {
     newContacts.splice(0);
 }
 
-/**HTML-templates for renderCircleName() */
-function renderNamesInTwoLetters(bgContactColor, letters, i) {
-    return document.getElementById('circleContactsContainer').innerHTML += `
-    <div class="circleContact" id="circleContact${i}" style="background-color: ${bgContactColor} !important">  ${letters}
-    </div>
-    `;
-}
 
 /*Subtask*/
 /**By clicking the + Symbol changed to New subTask Input*/
@@ -443,6 +384,7 @@ function createNewSubtask() {
     addsubtask.style.display = "none";
     onInputSubTask.style.display = "flex";
 }
+
 
 /**onclick cross mark all Subtasks are deleted except of the subTasks[0] -> it only left the default value in subTasks Array */
 function deleteSubTask() {
@@ -456,6 +398,7 @@ function deleteSubTask() {
     subTasks.pop();
     renderSubtasks();
 }
+
 
 /**
  * This function wait for the subTask input and render the SubTask one after one when the user insert subtask
@@ -480,11 +423,11 @@ function chooseSubtasks() {
     let allChekbox = document.querySelectorAll(`.checkedSubTasks`);
     for (let i = 0; i < allChekbox.length; i++) {
         const checkbox = allChekbox[i];
-        if (checkbox.checked) {
+        if (checkbox.checked)
             selectedSubtasks.push(checkbox.value);
-        }
     }
 }
+
 
 /**
  * This function tender all subTasks with their check boxes
@@ -494,13 +437,7 @@ function renderSubtasks() {
     appendixSubtask.innerHTML = "";
     for (let i = 0; i < subTasks.length; i++) {
         const showSubTask = subTasks[i];
-        appendixSubtask.innerHTML += /*html*/`
-            <label class="container">
-                <input type="checkbox" class="checkedSubTasks" onclick="chooseSubtasks()" value="${showSubTask}" checked />
-                <span class="checkmark" id="checkmark${i}"></span>
-                <div class="subtaskCheck">${showSubTask}</div>
-            </label>
-            `;
+        appendixSubtask.innerHTML += renderSubtasksHTML(showSubTask, i);
     }
 }
 
@@ -520,25 +457,19 @@ async function addTask() {
     getPriorityInformation();
     subTask = selectedSubtasks;
     idTask = generateTaskId(tasks);
-    //idTask = tasks.length;
-    if (typeof progress == 'undefined') {
+    saveTask();
+}
+
+/**
+ * This function save a new task
+ * 
+ */
+async function saveTask() {
+    if (typeof progress == 'undefined')
         progress = "To Do";
-    }
     if (p == true) {
-        var newTask = {
-            "title": title.value,
-            "description": description.value,
-            "category": category.value,
-            "categoryColor": categoryColor,
-            "contact": contact,
-            "dueDate": dueDate.value,
-            "subTask": subTask,
-            "subTaskDone": subTaskDone,
-            "priority": priority,
-            "priorityImg": priorityImg,
-            "id": idTask,
-            "progress": progress
-        };
+        let newTask = 
+            addNewTask();
         tasks.push(newTask);
         await saveTasksToBackend();
         await saveUserAccountsToBackend();
@@ -546,7 +477,28 @@ async function addTask() {
         document.getElementById('checkprio').classList.remove('d-none');
         document.getElementById('checkprio').innerHTML = 'Please select a priority!';
     }
+}
 
+/**
+ * Added all values to the new task
+ * 
+ * @returns newTask
+ */
+function addNewTask() {
+    return {
+        "title": title.value,
+        "description": description.value,
+        "category": category.value,
+        "categoryColor": categoryColor,
+        "contact": contact,
+        "dueDate": dueDate.value,
+        "subTask": subTask,
+        "subTaskDone": subTaskDone,
+        "priority": priority,
+        "priorityImg": priorityImg,
+        "id": idTask,
+        "progress": progress
+    }
 }
 
 /**
@@ -653,7 +605,7 @@ function annimationTaskAddedToBoard() {
     setTimeout(function () {
         document.getElementById('addTaskBtn').classList.add('buttonEnabled');
     }, 4000)
-   
+
 }
 
 /**

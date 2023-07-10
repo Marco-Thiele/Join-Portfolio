@@ -18,6 +18,7 @@ function onloadContact() {
     //updateCalender('date');
 }
 
+
 /**
  * This function gets the initials from contacts,pushes them into an array
  * 
@@ -29,13 +30,12 @@ function getFrontLettersUser() {
         let firstChar = contact.charAt(0);
         firstChar = firstChar.toUpperCase();
         check = letters.indexOf(firstChar);
-        if (check == -1) {
+        if (check == -1) 
             letters.push(firstChar);
-        }
     }
     sortLetters();
-
 }
+
 
 /**
  * This function renders and sorts the contacts alphabeticly
@@ -51,20 +51,31 @@ async function sortNames() {
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
         templateLetter(letter, i);
+        renderShortNames(userName, letter, i)
+    }
+}
 
-        for (let j = 0; j < userName.length; j++) {
 
-            let name = userName[j]['name'];
-            let email = userName[j]['email'];
-            let bothLetters = userName[j]['letters'];
-            let nameLetter = name.charAt(0);
-            if (nameLetter == letter) {
-                templateNameCard(i, name, email, j, bothLetters);
-                circleColor(j);
-            }
+/**
+ * Render the contacts
+ * 
+ * @param {string} userName 
+ * @param {string} letter 
+ * @param {number} i 
+ */
+function renderShortNames(userName, letter, i){
+    for (let j = 0; j < userName.length; j++) {
+        let name = userName[j]['name'];
+        let email = userName[j]['email'];
+        let bothLetters = userName[j]['letters'];
+        let nameLetter = name.charAt(0);
+        if (nameLetter == letter) {
+            templateNameCard(i, name, email, j, bothLetters);
+            circleColor(j);
         }
     }
 }
+
 
 /**
  * This function gives a contact cirlce image a saved background color
@@ -77,6 +88,12 @@ function circleColor(j) {
 }
 
 
+/**
+ * Shows all contact information
+ * 
+ * @param {number} j 
+ * @param {string} bothLetters 
+ */
 function showContact(j, bothLetters) {
     document.getElementById('right-container').style.justifyContent = 'flex-start';
     if (window.innerWidth < 1140) {
@@ -86,20 +103,12 @@ function showContact(j, bothLetters) {
     contactName = userAccounts[activeUser]['userContacts'][j]['name'];
     email = userAccounts[activeUser]['userContacts'][j]['email'];
     phone = userAccounts[activeUser]['userContacts'][j]['phone'];
-    document.getElementById('contact-circle-letters').innerHTML = `${bothLetters}`;
-    document.getElementById('contact-circle').style.backgroundColor = `${color}`;
-    document.getElementById('float-contact-name').innerHTML = `${contactName}`;
-    document.getElementById('contact-information').innerHTML = `<h4>Contact information</h4>
-    <a class="edit" onclick="editContactCard(${j});"><img src="assets/img/edit-contact.png"><p>Edit contact</p></a>`;
-    document.getElementById('responsive-buttons').innerHTML = `
-    <button class="delete-button-responsive" onclick="deleteContact(${j});"><img src="assets/img/delete-contact.png"> </button>
-    <button class="edit-button-responsive" onclick="editContactCard(${j});"><img src="assets/img/edit-contact2.png"> </button>`;
-    document.getElementById('email').innerHTML = `${email}`;
-    document.getElementById('phone').innerHTML = `${phone}`;
+    renderHTMLShowContact(color, bothLetters, contactName, j, email, phone);
     document.getElementById('floating-contact-container').style.display = "flex";
     document.getElementById('right-container').classList.add("display");
     displayFloatContact();
 }
+
 
 /**
  * This fucntion makes the contact details visable
@@ -109,6 +118,7 @@ function displayFloatContact() {
     document.getElementById('name-container').style.display = '';
     document.getElementById('contact-details').style.display = '';
 }
+
 
 /**
  * This function lets you edit the contact
@@ -121,6 +131,7 @@ function editContactCard(j) {
     changeProfileInitials(j);
     showCard();
 }
+
 
 /**
  * This function changes the profile picture to the initials and the backgroundcolor
@@ -135,6 +146,7 @@ function changeProfileInitials(j) {
     document.getElementById('icon-container').style.backgroundColor = `${color}`;
 }
 
+
 /**
  * This function lets you delete a contact
  * 
@@ -148,11 +160,15 @@ async function deleteContact(j) {
     sortNames();
     closeContactCard();
     changeTextTo('deleted');
-    successfulAnimation();
-    
+    successfulAnimation(); 
 }
 
 
+/**
+ * Change contact information
+ * 
+ * @param {string} j 
+ */
 async function editContact(j) {
     letters = [];
     getInputValues();
@@ -166,6 +182,7 @@ async function editContact(j) {
     successfulAnimation();
 }
 
+
 /**
  * This function changes the alert text.
  * 
@@ -174,8 +191,8 @@ async function editContact(j) {
 function changeTextTo(text) {
     document.getElementById('success').innerHTML = `Contact succesfully ${text}`;
     document.getElementById('right-container').style.justifyContent = 'space-between';
-
 }
+
 
 /**
  * This function sorting letters and renders the initials
@@ -186,9 +203,9 @@ function sortLetters() {
     for (let i = 0; i < letters.length; i++) {
         const letter = letters[i];
         document.getElementById('contact-container').innerHTML += `<div id="letter-container">${letter}</div>`;
-
     }
 }
+
 
 /**
  * This function displays the add-contact-card
@@ -199,6 +216,7 @@ function showCard() {
     document.getElementById('contact-card').classList = 'add-contact-card';
 }
 
+
 /**
  * This function hides the add-contact-card
  * 
@@ -208,8 +226,8 @@ function closeContactCard() {
     document.getElementById('bg').style.display = 'none';
     changeTemplateBack();
     resetInputfields();
-
 }
+
 
 /**
  * This function gets the input values
@@ -219,6 +237,24 @@ function getInputValues() {
     let contact_email = document.getElementById('contact-email');
     let contact_phone = document.getElementById('contact-phone');
     let contact_name = document.getElementById('contact-name');
+    changeInputValues(contact_email, contact_phone, contact_name)
+    if (inputName.indexOf(' ') >= 0) {
+        let helpLetter = contactName.split(" ");
+        bothLetters = helpLetter[0].charAt(0).toUpperCase() + helpLetter[1].charAt(0).toUpperCase();
+    }
+    else 
+        bothLetters = firstLetter;  
+}
+
+
+/**
+ * Change the input values
+ * 
+ * @param {string} contact_email 
+ * @param {string} contact_phone 
+ * @param {string} contact_name 
+ */
+function changeInputValues(contact_email, contact_phone, contact_name) {
     inputName = contact_name.value;
     email = contact_email.value;
     phone = contact_phone.value;
@@ -226,14 +262,8 @@ function getInputValues() {
     const remainingLetters = inputName.slice(1);
     contactName = firstLetter + remainingLetters;
     contactColor = randomUserColor();
-    if (inputName.indexOf(' ') >= 0) {
-        let helpLetter = contactName.split(" ");
-        bothLetters = helpLetter[0].charAt(0).toUpperCase() + helpLetter[1].charAt(0).toUpperCase();
-    }
-    else {
-        bothLetters = firstLetter;
-    }
 }
+
 
 /**
  * This function creates a new contact by getting the values and pushing them into the Object
@@ -254,6 +284,7 @@ async function CreateNewContact() {
     showContact(userName.length - 1, bothLetters);
 }
 
+
 /**
  * This function resets the inputfields
  * 
@@ -264,6 +295,7 @@ function resetInputfields() {
     document.getElementById('contact-name').value = '';
 }
 
+
 /**
  * This function sets the inputfields to the fitting contact details
  * 
@@ -273,22 +305,21 @@ function setInputfields(j) {
     document.getElementById('contact-email').value = userAccounts[activeUser]['userContacts'][j]['email'];
     document.getElementById('contact-phone').value = userAccounts[activeUser]['userContacts'][j]['phone'];
     document.getElementById('contact-name').value = userAccounts[activeUser]['userContacts'][j]['name'];
-
 }
 
 
+/**
+ * It plays a animation if saveToBackend was successful
+ * 
+ */
 function successfulAnimation() {
     document.getElementById('success').style.display = '';
     document.getElementById('success').classList.add("animate-contact");
-
     setTimeout(() => {
         document.getElementById('success').style.display = 'none';
-
-    }
-        , 2000);
-
-
+    }, 2000);
 }
+
 
 /**
  * This function displays the addTask html template
@@ -298,6 +329,7 @@ function showAddTaskPopOut() {
     document.getElementById('popOut-taskCard').classList.remove('d-none');
 }
 
+
 /**
  * This function hides the addTask html template
  * 
@@ -306,6 +338,7 @@ function closePopOutAddTask() {
     document.getElementById('popOut-taskCard').classList.add('d-none');
 }
 
+
 /**
  * This function hides the right container
  * 
@@ -313,76 +346,8 @@ function closePopOutAddTask() {
 function backToContactList() {
     document.getElementById('right-container').classList.remove("display");
     document.getElementById('kanban-contact').style.display ="none";
-
 }
 
-/**
- * This function changes the add-contact card to the edit contact card
- * 
- * @param {number} j is the number that leads to the specific position of the array
- */
-function changeTemplate(j) {
-    document.getElementById('card-header').innerHTML = '<h3>Edit contact</h3>';
-    document.getElementById('btn-container').innerHTML = `                
-    <button id="left-btn" onclick="deleteContact(${j})" class="btn-contact-white">Delete<img class="cancel-img"
-    src="assets/img/contact-cancel-button.png"></button>
-    <button id="right-btn" onclick="editContact(${j})" class="btn-contact-blue">Save<img class="create-contact-img"
-    src="assets/img/contact-create-contact-button.png"></button>`;
-    document.getElementById('right-btn').classList.add("width-btn");
 
-}
 
-/**
- * This function changes the edit-contact card to back the add contact card
- * 
- */
-function changeTemplateBack() {
-    document.getElementById('icon-container').innerHTML = '<img src="assets/img/add-contact-profile.png">';
-    document.getElementById('card-header').innerHTML = `<h3>Add contact</h3>
-    <p>Tasks are better with a team!</p>`;
-    document.getElementById('btn-container').innerHTML = `                
-    <button id="left-btn" onclick="closeContactCard()" class="btn-contact-white">Cancel<img class="cancel-img"
-    src="assets/img/contact-cancel-button.png"></button>
-    <button id="right-btn" onclick="CreateNewContact()" class="btn-contact-blue">Create contact<img class="create-contact-img"
-    src="assets/img/contact-create-contact-button.png"></button>`;
-    document.getElementById('right-btn').classList.remove("width-btn");
 
-}
-
-/**
- * This function renders the namecards in the contactlist
- * 
- * @param {number} i is the id number of the contact-card
- * @param {string} name is the name of the contact
- * @param {email} email is the email of the contact
- * @param {number} j is the number that leads to the specific position of the array
- * @param {string} bothLetters are the initial of the contact
- */
-function templateNameCard(i, name, email, j, bothLetters) {
-    document.getElementById('contact-cards' + i).innerHTML += `
-    <div class="name-card" id=name-card${j} onclick="showContact(${j},'${bothLetters}')">
-      <div class="circle" id="circle${j}">${bothLetters}</div>
-      <div class="info">
-            <h4> ${name} </h4>
-             <p> ${email} </p>
-     </div>
-    </div>`;
-}
-
-/**
- * This function renders the contactlist-cards-box
- * 
- * @param {string} letter is the alphabetic character
- * @param {number} i is the id number of the contact-card
- */
-function templateLetter(letter, i) {
-    document.getElementById('contact-container').innerHTML +=
-        `<div class="contact-list">
-        <div id="letter-container">
-        ${letter}
-        </div>
-        <span class="vertical-line"></span>
-        <div class="contact-cards" id="contact-cards${i}">
-        </div>
-    </div>`;
-}

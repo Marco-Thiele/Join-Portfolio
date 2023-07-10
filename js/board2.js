@@ -65,6 +65,12 @@ function chooseContactBoard(name, cards) {
 }
 
 
+/**
+ * If checkbox checked render contacts in overlay changes
+ * 
+ * @param {object} checkbox 
+ * @param {object} todo 
+ */
 function chooseContactOverlayChange(checkbox, todo) {
     if (checkbox.checked) {
         choosedContact.push(checkbox.value);
@@ -277,7 +283,13 @@ function chooseSearchInput() {
 }
 
 
-
+/**
+ * Render search result
+ * 
+ * @param {string} title 
+ * @param {string} text 
+ * @param {string} search 
+ */
 function renderSearchFilter(title, text, search) {
     for (let i = 0; i < title.length; i++) {
         let element = title[i]['title'];
