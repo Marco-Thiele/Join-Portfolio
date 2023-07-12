@@ -20,6 +20,8 @@
     <script src="./js/board.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/addTask.js"></script>
+    <script src="./js/addTask2.js"></script>
+    <script src="./js/addTask3.js"></script>
     <script src="./js/render_addTask.js"></script>
     <script src="./js/mini_backend.js"></script>
     <script src="./js/register.js"></script>
@@ -30,6 +32,9 @@
 <body onload="onloadAddTask()">
     <div class="frame0">
         <div w3-include-html="desktop-template.html"></div>
+        <div id="deleteCategory" class="position-delete">
+            
+        </div>
         <form class="taskCard" onsubmit="addTaskToBoard(); return false" id="popOut-taskCard">
             <div class="contentContainer">
                 <div class="headline">
@@ -58,7 +63,7 @@
 
                         <div class="prioContainer">
                             <label for="priority" class="priority">Prio</label>
-                            <div class="priorityBoxesContainer"  required>
+                            <div class="priorityBoxesContainer" required>
                                 <div class="prioUrgentBox" id="prioUrgentBox" onclick="insertUrgent()">Urgent <img
                                         id="prioUrgentImg" src="assets/img/urgent.png"></div>
                                 <div class="prioMediumBox" id="prioMediumBox" onclick="insertMedium()">Medium <img
@@ -115,7 +120,7 @@
                                 <div class="newAssignToInput" id="newAssignToInput">
                                     <img src="assets/img/icon_clear.png" onclick="rejectAssignTo()">
                                     <div class="line"></div>
-                                    <img src="assets/img/checkmark.png" type="submit" onclick="addnewContact()">
+                                    <img src="assets/img/checkmark.png" type="submit" onclick="showEmailSentStatus()">
                                 </div>
                             </div>
                             <div id="assignedList" class="assignedList"></div>

@@ -268,6 +268,7 @@ function filterHtml() {
     filterCount = 0
 }
 
+
 /**
  * Choose the right searchfield
  * 

@@ -24,11 +24,24 @@ function renderCategoryHTML3() {
 
 function deleteCategoryAddTaskHTML(i, category, color) {
     return `
-    <div class="categoryAndColor" onclick="deleteThisCategory(${i})" >
+    <div class="categoryAndColor" onclick="wantDeleteCategory(${i})" >
         <div>${category}</div>
         <div class="color"  style="background-color:${color}"></div>
     </div>
     `;
+}
+
+
+function wantDeleteCategoryHTML(category, i){
+    return `<div class="delete-category">
+    <div>
+        Do you want to delete the category <i id="colorCategory">${category}</i> ?
+    </div>
+    <div class="position-delete-btn">
+        <button onclick="deleteThisCategory(${i})">Yes</button>
+        <button onclick="notDeleteThisCategory()">No</button>
+    </div>
+</div>`;
 }
 
 

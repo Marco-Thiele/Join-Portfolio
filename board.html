@@ -25,6 +25,9 @@
     <script src="js/render_board.js"></script>
     <script src="js/mini_backend.js"></script>
     <script src="./js/addTask.js"></script>
+    <script src="./js/addTask2.js"></script>
+    <script src="./js/addTask3.js"></script>
+    <script src="./js/render_addTask.js"></script>
 
 </head>
 
@@ -38,7 +41,7 @@
                 <h2>Board</h2>
             </div>
             <div class="search-button">
-                <input class="search-input" onchange="filterHtml()" id="search" type="text" placeholder=" Find Task">
+                <input class="search-input" onkeydown="filterHtml()" id="search" type="text" placeholder=" Find Task">
                 <button class="add-button" onclick="showAddTaskPopOut()">Add task <img class="add-button-img"
                         src="assets/img/Capa1.svg"></button>
                 <button onclick="showAddTaskPopOut()" class="add-button-small"><img src="assets/img/Capa1.svg" alt=""></button>
@@ -48,7 +51,7 @@
             No task found
         </div>
         <div class="search-button">
-            <input class="search-input-small" onchange="filterHtml()" id="searchSmall" type="text" placeholder=" Find Task">
+            <input class="search-input-small" onkeydown="filterHtml()" id="searchSmall" type="text" placeholder=" Find Task">
         </div>
         <div>
             <div class="working-class position-board">
