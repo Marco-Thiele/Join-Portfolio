@@ -231,3 +231,23 @@ function myFunction() {
     document.getElementById('kanban').classList.add('display-unset');
   }
 }
+
+
+/**
+ * Delete a task from backend and update HTML
+ * 
+ * @param {number} number 
+ */
+async function deleteTaskActiveUser(number) {
+    let user = userAccounts[activeUser]['userTasks'];
+    for (let i = 0; i < user.length; i++) {
+        if (user[i].id === number) {
+            user.splice(i, 1);
+            break;
+        }
+    }
+    await saveTasksToBackend()
+    await saveUserAccountsToBackend();
+    closeOverlay();
+    updateHTML();
+}

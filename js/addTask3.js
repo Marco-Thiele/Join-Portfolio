@@ -36,10 +36,11 @@ function deleteCategoryAddTask() {
  * 
  * @param {number} i 
  */
-function wantDeleteCategory(i) {
+function wantDeleteCategory(i) { 
     let category = userAccounts[activeUser].userCategory[i].category;
     let color = userAccounts[activeUser].userCategory[i].color;
     let deleteDiv = document.getElementById('deleteCategory');
+    deleteDiv.style.zIndex = "30";
     deleteDiv.innerHTML = '';
     deleteDiv.innerHTML = wantDeleteCategoryHTML(category, i)
     document.getElementById('colorCategory').style.color = color;
@@ -60,6 +61,7 @@ async function deleteThisCategory(i) {
     unsetCategoryInputField();
     await saveUserAccountsToBackend();
     renderCategory();
+    document.getElementById('deleteCategory').style.zIndex = "-1";
 }
 
 
@@ -72,6 +74,7 @@ function notDeleteThisCategory() {
     category = document.getElementById('input');
     category.value = "";
     renderCategory();
+    document.getElementById('deleteCategory').style.zIndex = "-1";
 }
 
 

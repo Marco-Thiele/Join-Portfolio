@@ -24,16 +24,27 @@ async function addTaskOnSubPages() {
     chooseSubtasks();
     await addTask();
     if (p == true) {
-        document.getElementById('bg').style.display = 'none';
-        annimationTaskAddedToBoardForPopOut();
-        setAllFieldsToDefault();
-        closeDropdownCategory();
-        closeDropDownAssignTo();
-        choseContacts = [];
-        updateHTML();
-        selectedSubtasks = [];
-        p = false;
+        clearAllFields();
     }
+}
+
+
+/**
+ * Cleared all fields after save
+ * 
+ */
+function clearAllFields(){
+    document.getElementById('bg').style.display = 'none';
+    annimationTaskAddedToBoardForPopOut();
+    setAllFieldsToDefault();
+    document.getElementById('assignedList').innerHTML = '';
+    closeDropdownCategory();
+    closeDropDownAssignTo();
+    choseContacts = [];
+    subTasks = [];
+    updateHTML();
+    selectedSubtasks = [];
+    p = false;
 }
 
 
@@ -125,7 +136,7 @@ function annimationTaskAddedToBoardForPopOut() {
     document.getElementById('addTaskBtn').classList.add('buttonDisabled');
     setTimeout(function () {
         document.getElementById('addTaskBtn').classList.add('buttonEnabled');
-    }, 4000)
+    }, 3000)
     setTimeout(function () {
         closePopOutAddTask();
     }, 2000)

@@ -392,8 +392,8 @@ input[type=date]:invalid::-webkit-datetime-edit {
     position: relative;
     z-index: 20;
     border: 1px solid black;
-    border-radius: 5px;
-    background-color: rgb(220, 222, 223);
+    border-radius: 16px;
+    background-color: rgb(42,54,71);
     min-height: 70px;
     display: flex;
     flex-direction: column;
@@ -401,6 +401,7 @@ input[type=date]:invalid::-webkit-datetime-edit {
     gap: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    color: white;
 }
 
 .position-delete{

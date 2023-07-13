@@ -218,6 +218,10 @@
         width: 260px;
     }
 
+    .delete-category{
+        width: 250px;
+    }
+
     .taskCard {
         padding-left: 2px;
         padding-right: 0px;
@@ -340,10 +344,6 @@
     .subtasksInput {
         font-size: 15px !important;
         width: 172px !important;
-    }
-
-    .side-bar {
-        width: 280px;
     }
 
     .newCategoryInput,

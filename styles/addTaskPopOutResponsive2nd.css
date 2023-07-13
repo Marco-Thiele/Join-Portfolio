@@ -243,6 +243,10 @@
         padding-right: 0px;
     }
 
+    .delete-category{
+        width: 250px;
+    }
+
     .headline {
         width: 290px !important;
     }

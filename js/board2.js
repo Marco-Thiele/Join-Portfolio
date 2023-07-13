@@ -106,10 +106,11 @@ async function saveInputTask(cards) {
  * @param {number} cards 
  */
 async function saveAndNewRender(cards) {
-    await saveTasksToBackend()
+    await saveTasksToBackend();
     await saveUserAccountsToBackend();
-    updateHTML()
-    showOverlay(cards)
+    updateHTML();
+    choosedContact= [];
+    showOverlay(cards);
 }
 
 
@@ -133,12 +134,6 @@ function newTitleSave(todo) {
  * @param {object} todo 
  */
 function contactChoosed(todo) {
-    /* if (choosedContact.length === 0) {
-         for (let i = 0; i < todo['contact'].length; i++) {
-             const element = todo['contact'][i];
-             choosedContact.push(element);
-         }
-     }*/
     if (!todo.contact.includes(todo.contact)) {
         todo.contact = choosedContact
     }
@@ -352,9 +347,8 @@ function renderFilterHtml(userTasks, search, cards) {
 function renderFilterHtmlToDo(userTasks, search, cards) {
     let title = cards == 'To Do' && userTasks['title'].toLowerCase().includes(search);
     let text = cards == 'To Do' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) {
+    if (title || text) 
         document.getElementById('toDoContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-    }
 }
 
 
@@ -368,9 +362,8 @@ function renderFilterHtmlToDo(userTasks, search, cards) {
 function renderFilterHtmlInProgress(userTasks, search, cards) {
     let title = cards == 'In progress' && userTasks['title'].toLowerCase().includes(search);
     let text = cards == 'In progress' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) {
+    if (title || text) 
         document.getElementById('inProgressContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-    }
 }
 
 
@@ -384,9 +377,8 @@ function renderFilterHtmlInProgress(userTasks, search, cards) {
 function renderFilterHtmlAwaitingFeedback(userTasks, search, cards) {
     let title = cards == 'Awaiting Feedback' && userTasks['title'].toLowerCase().includes(search);
     let text = cards == 'Awaiting Feedback' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) {
+    if (title || text) 
         document.getElementById('awaitingFeedbackContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-    }
 }
 
 
@@ -400,27 +392,6 @@ function renderFilterHtmlAwaitingFeedback(userTasks, search, cards) {
 function renderFilterHtmlDone(userTasks, search, cards) {
     let title = cards == 'Done' && userTasks['title'].toLowerCase().includes(search);
     let text = cards == 'Done' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) {
+    if (title || text) 
         document.getElementById('doneContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-    }
-}
-
-
-/**
- * Delete a task from backend and update HTML
- * 
- * @param {number} number 
- */
-async function deleteTaskActiveUser(number) {
-    let user = userAccounts[activeUser]['userTasks'];
-    for (let i = 0; i < user.length; i++) {
-        if (user[i].id === number) {
-            user.splice(i, 1);
-            break;
-        }
-    }
-    await saveTasksToBackend()
-    await saveUserAccountsToBackend();
-    closeOverlay();
-    updateHTML();
 }

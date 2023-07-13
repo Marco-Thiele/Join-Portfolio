@@ -3,19 +3,21 @@
         display: none;
 
     }
-    .responsive-greet{
+
+    .responsive-greet {
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
-    .greeting-container p{
+
+    .greeting-container p {
         font-weight: normal;
         font-size: 36px;
         width: auto;
         height: auto;
     }
 
-    .greeting-container h3{
+    .greeting-container h3 {
         font-size: 47px;
         width: auto;
         height: auto;
@@ -66,7 +68,7 @@
         margin: 0;
     }
 
-    .single-container a{
+    .single-container a {
         width: 110px;
         height: 110px;
         border-radius: 20px;
@@ -146,86 +148,143 @@
         height: 40px;
     }
 
-    .img-container{
+    .img-container {
         display: flex;
         align-items: center;
-        margin-left: 43.75px ;
+        margin-left: 43.75px;
         margin-right: 18.5px;
         width: auto;
         height: auto;
     }
 
-    .do-counter{
+    .do-counter {
         justify-content: flex-start;
-        
+
     }
-    .do-nr-container{
+
+    .do-nr-container {
         margin-left: 0px;
-       
+
     }
-    .do-nr{
+
+    .do-nr {
         font-size: 47px;
     }
-    .do-counter p{
+
+    .do-counter p {
         font-size: 14px;
     }
 }
 
-@media(max-width:800px){
-    .desktop{
-        margin-left:0px;
+@media(max-width:800px) {
+    .desktop {
+        margin-left: 0px;
     }
 
-    .html-topic{
+    .html-topic {
         margin-left: 33px;
     }
 
-    .html-topic-sub p{
+    .html-topic-sub p {
         font-size: 21px;
     }
 
-    .html-topic h2{
+    .html-topic h2 {
         font-size: 47px;
         width: auto;
         height: auto;
     }
 
-    .task-container{
+    .task-container {
         margin-left: 33px;
     }
 
-    .responsive-greet{
+    .responsive-greet {
         left: 0px;
+    }
+
+    .display-unset{
+        display: none;
     }
 
 }
 
-@media(max-width:421px){
-    .desktop{
-        margin-left:0px;
-    }
-
-    .html-topic{
-        margin-left: 5px;
-    }
-
-    #kanban{
-        left: 5px;
-    }
-
-    .task-container{
+@media(max-width:421px) {
+    .desktop {
         margin-left: 0px;
     }
 
-    .greeting-container h3{
+    .html-topic {
+        margin-left: 5px;
+    }
+
+    #kanban {
+        left: 5px;
+    }
+
+    .task-container {
+        margin-left: 2%;
+    }
+
+    .greeting-container h3 {
         font-size: 36px;
     }
 
 }
 
-@media(max-height:799px){
-    .task-container{
+@media(max-height:799px) {
+    .task-container {
         margin-bottom: 140px;
     }
 }
 
+@media(max-width:380px) {
+    .single-container {
+        width: 90px;
+    }
+
+    .task-container {
+        width: 300px;
+    }
+
+    .urgent {
+        margin-left: 5px;
+    }
+    
+    .urgent-nr{
+        font-size: 40px;
+    }
+
+    .urgent-container{
+        margin-left: 6px;
+    }
+
+    .line-grey {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .urgency {
+        width: 300px;
+    }
+    
+    .urgency:hover{
+        width: 300px;
+        height: 110px;
+    }
+    
+    .do-counter-container{
+        width: 301px;
+    }
+    
+    .img-container{
+        margin-left: 20px;
+    }
+
+    .do-inner-container a{
+        width: 145px;
+    }
+    .do-inner-container a:hover{
+        width: 145px;
+    }
+}

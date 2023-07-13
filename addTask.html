@@ -30,11 +30,12 @@
 </head>
 
 <body onload="onloadAddTask()">
+    <div id="deleteCategory" class="position-delete">
+            
+    </div>
     <div class="frame0">
         <div w3-include-html="desktop-template.html"></div>
-        <div id="deleteCategory" class="position-delete">
-            
-        </div>
+        
         <form class="taskCard" onsubmit="addTaskToBoard(); return false" id="popOut-taskCard">
             <div class="contentContainer">
                 <div class="headline">
@@ -69,7 +70,7 @@
                                 <div class="prioMediumBox" id="prioMediumBox" onclick="insertMedium()">Medium <img
                                         id="prioMediumImg" src="assets/img/medium.png"></div>
                                 <div class="prioLowBox" id="prioLowBox" onclick="insertLow()">Low <img id="prioLowImg"
-                                        src="assets/img/Low.png"></div>
+                                        src="assets/img/low.png"></div>
                             </div>
                             <div id="checkprio" class="d-none checkprio"></div>
                         </div>
