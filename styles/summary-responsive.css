@@ -1,4 +1,4 @@
-@media(max-width:1308px) {
+@media(max-width:1400px) {
     .greeting-container {
         display: none;
 
@@ -241,6 +241,12 @@
 @media(max-width:380px) {
     .single-container {
         width: 90px;
+    }
+
+    .flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .task-container {

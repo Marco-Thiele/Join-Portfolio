@@ -114,11 +114,14 @@ function annimationTaskAddedToBoard() {
     document.getElementById('messageAddedTask').classList.add('animate');
     setTimeout(function () {
         document.getElementById('messageAddedTask').style.display = "none";
-    }, 3900)
+    }, 900)
     document.getElementById('addTaskBtn').classList.add('buttonDisabled');
     setTimeout(function () {
         document.getElementById('addTaskBtn').classList.add('buttonEnabled');
-    }, 4000)
+    }, 900)
+    setTimeout(function () {
+        window.location = "./board.html";
+    }, 1000)
 
 }
 
@@ -132,14 +135,14 @@ function annimationTaskAddedToBoardForPopOut() {
     document.getElementById('messageAddedTask').classList.add('animate');
     setTimeout(function () {
         document.getElementById('messageAddedTask').style.display = "none";
-    }, 2000)
+    }, 1000)
     document.getElementById('addTaskBtn').classList.add('buttonDisabled');
     setTimeout(function () {
         document.getElementById('addTaskBtn').classList.add('buttonEnabled');
-    }, 3000)
+    }, 1000)
     setTimeout(function () {
         closePopOutAddTask();
-    }, 2000)
+    }, 500)
 }
 
 

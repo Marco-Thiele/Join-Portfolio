@@ -47,6 +47,8 @@ function renderSignUp() {
                     <input required class="input" type="" name="name" id="sign-up-name-input" placeholder="Name">
                     <img src="./assets/img/user-icon.png">
                 </div>
+                <div id="notRightName" class="not-right-name d-none">
+                </div>
 
                 <div class="input-field">
                     <input required class="input" type="email" name="email" id="sign-up-email-input" placeholder="Email">

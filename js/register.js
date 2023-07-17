@@ -7,35 +7,35 @@ async function signUpUser() {
   let userColor = randomUserColor();
   let splitName = name.split(" ");
   if (splitName.length !== 2) {
-    document.getElementById('sign-up-name-input').value = "";
-    document.getElementById('sign-up-name-input').placeholder = "enter your first and last name";
+    document.getElementById('notRightName').classList.remove('d-none');
+    document.getElementById('notRightName').innerHTML = "Please enter your first and last name";
   } else {
     for (let i = 0; i < splitName.length; i++) {
       let namePart = splitName[i];
       splitName[i] = namePart.charAt(0).toUpperCase() + namePart.slice(1);
     }
     name = splitName.join(" ");
-
+    document.getElementById('notRightName').classList.add('d-none');
     userInitials = userNameInitial(name);
-    pushNewUser(name, email, password, userId, userInitials, userColor)
+    await pushNewUser(name, email, password, userId, userInitials, userColor)
     await saveUserAccountsToBackend();
     document.getElementById("registerBox").classList.remove("display-none");
     setTimeout(backToLogin, 1000);
   }
 }
 
-function pushNewUser(name, email, password, userId, userInitials, userColor) {
+async function pushNewUser(name, email, password, userId, userInitials, userColor) {
+  let user = userAccounts[1]
   let newUser = {
+    userCategory: user.userCategory,
     userName: name,
     userEmail: email,
     userPassword: password,
     userId: userId,
     userInitials: userInitials,
     userColor: userColor,
-    userContacts: [],
-    userTasks: [],
-    userCategory: []
-
+    userContacts: user.userContacts,
+    userTasks: user.userTasks,
   };
   userAccounts.push(newUser);
 }

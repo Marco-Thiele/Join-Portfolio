@@ -361,7 +361,7 @@ function addNewTask() {
         "subTask": subTask,
         "subTaskDone": subTaskDone,
         "priority": priority,
-        "priorityImg": priorityImg,
+        "priorityImg": priorityImg.src,
         "id": idTask,
         "progress": progress
     }

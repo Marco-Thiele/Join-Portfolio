@@ -73,6 +73,7 @@ function notDeleteThisCategory() {
     document.getElementById('deleteCategory').innerHTML = '';
     category = document.getElementById('input');
     category.value = "";
+    unsetCategoryInputField();
     renderCategory();
     document.getElementById('deleteCategory').style.zIndex = "-1";
 }
@@ -228,48 +229,24 @@ function rejectNewCategory() {
  */
 function getPriorityInformation() {
     if (document.getElementById('prioUrgentBox').classList.contains('bgUrgent')) {
-        getPriorityInformationUrgent();
+        getPriorityInformationField('prioUrgentBox', 'prioUrgentImg', 'urgent', 'assets/img/urgent.png');
     } else if (document.getElementById('prioMediumBox').classList.contains('bgMedium')) {
-        getPriorityInformationMedium();
+        getPriorityInformationField('prioMediumBox', 'prioMediumImg', 'medium', 'assets/img/medium.png');
     } else if (document.getElementById('prioLowBox').classList.contains('bgLow')) {
-        getPriorityInformationLow();
+        getPriorityInformationField('prioLowBox', 'prioLowImg', 'low', 'assets/img/low.png');
     }
 }
 
 
 /**
- * Set the Priority to urgent
+ * Set the Priority to urgent, medium or low
  * 
  */
-function getPriorityInformationUrgent() {
+function getPriorityInformationField(priorityBoxId, priorityImgId, priorityText, priorityImgSrc) {
     p = true;
-    priority = document.getElementById('prioUrgentBox').innerText;
-    priorityImg = document.createElement("prioUrgentImg");
-    priorityImg = "assets/img/urgent.png";
-}
-
-
-/**
- * Set the Priority to medium
- * 
- */
-function getPriorityInformationMedium() {
-    p = true;
-    priority = document.getElementById('prioMediumBox').innerText;
-    priorityImg = document.createElement("prioMediumImg");
-    priorityImg = "assets/img/medium.png";
-}
-
-
-/**
- * Set the Priority to low
- * 
- */
-function getPriorityInformationLow() {
-    p = true;
-    priority = document.getElementById('prioLowBox').innerText;
-    priorityImg = document.createElement("prioLowImg");
-    priorityImg = "assets/img/low.png";
+    priority = document.getElementById(priorityBoxId).innerText;
+    priorityImg = document.createElement(priorityImgId);
+    priorityImg.src = priorityImgSrc;
 }
 
 
