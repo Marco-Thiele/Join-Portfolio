@@ -138,11 +138,11 @@ function showOverlayChangeHTML3() {
 </div>
 <label for="priority" class="priority">Prio</label>
 <div  class="priorityBoxesContainerBoard">
-    <div class="prioUrgentBox" id="prioUrgentBox" onclick="insertUrgent()">Urgent <img
+    <div class="prioUrgentBox" id="prioUrgentBox" onclick="insertPriorityAddTask('Urgent', 'Medium', 'Low')">Urgent <img
             id="prioUrgentImg" src="assets/img/urgent.png"></div>
-    <div class="prioMediumBox" id="prioMediumBox" onclick="insertMedium()">Medium <img
+    <div class="prioMediumBox" id="prioMediumBox" onclick="insertPriorityAddTask('Medium', 'Urgent', 'Low')">Medium <img
             id="prioMediumImg" src="assets/img/medium.png"></div>
-    <div class="prioLowBox" id="prioLowBox" onclick="insertLow()">Low <img id="prioLowImg"
+    <div class="prioLowBox" id="prioLowBox" onclick="insertPriorityAddTask('Low', 'Urgent', 'Medium')">Low <img id="prioLowImg"
             src="assets/img/low.png"></div>
 </div>`
 ;

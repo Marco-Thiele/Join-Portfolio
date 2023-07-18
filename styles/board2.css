@@ -13,9 +13,7 @@
     border-radius: 10px;
 }
 
-.whitecolor {
-    filter: invert(96%) sepia(96%) saturate(12%) hue-rotate(34deg) brightness(106%) contrast(100%);
-}
+
 
 .prioUrgentBox:hover,
 .prioMediumBox:hover,

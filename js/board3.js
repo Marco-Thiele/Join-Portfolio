@@ -24,17 +24,16 @@ function doNotClose(event) {
 
 
 /**
- * Show urgent button
+ * Load priority button
  * 
  */
-function insertUrgent() {
-    document.getElementById('prioUrgentBox').classList.toggle('bgUrgent');
-    document.getElementById('prioMediumBox').classList.remove('bgMedium');
-    document.getElementById('prioLowBox').classList.remove('bgLow');
-    /*img-color*/
-    document.getElementById('prioUrgentImg').classList.add('whitecolor');
-    document.getElementById('prioMediumImg').classList.remove('whitecolor');
-    document.getElementById('prioLowImg').classList.remove('whitecolor');
+function insertPriorityField(priority, nonPriority1, nonPriority2) {
+    document.getElementById(`prio${priority}Box`).classList.toggle(`bg${priority}`);
+    document.getElementById(`prio${nonPriority1}Box`).classList.remove(`bg${nonPriority1}`);
+    document.getElementById(`prio${nonPriority2}Box`).classList.remove(`bg${nonPriority2}`);
+    document.getElementById(`prio${priority}Img`).classList.add('Img-white');
+    document.getElementById(`prio${nonPriority1}Img`).classList.remove('whitecolor');
+    document.getElementById(`prio${nonPriority2}Img`).classList.remove('whitecolor');
 }
 
 
@@ -42,11 +41,12 @@ function insertUrgent() {
  * Show medium button
  * 
  */
+/*
 function insertMedium() {
     document.getElementById('prioMediumBox').classList.toggle('bgMedium');
     document.getElementById('prioLowBox').classList.remove('bgLow');
     document.getElementById('prioUrgentBox').classList.remove('bgUrgent');
-    /*img-color*/
+    
     document.getElementById('prioMediumImg').classList.add('whitecolor');
     document.getElementById('prioUrgentImg').classList.remove('whitecolor');
     document.getElementById('prioLowImg').classList.remove('whitecolor');
@@ -56,17 +56,17 @@ function insertMedium() {
 /**
  * Show low button
  * 
- */
+ 
 function insertLow() {
     document.getElementById('prioLowBox').classList.toggle('bgLow');
     document.getElementById('prioUrgentBox').classList.remove('bgUrgent');
     document.getElementById('prioMediumBox').classList.remove('bgMedium');
-    /*img-color*/
+    /*img-color*
     document.getElementById('prioLowImg').classList.add('whitecolor');
     document.getElementById('prioUrgentImg').classList.remove('whitecolor');
     document.getElementById('prioMediumImg').classList.remove('whitecolor');
 }
-
+*/
 
 /**
  * reads the priortiy and show the right button
@@ -77,11 +77,11 @@ function insertPriority(cards) {
     let user = userAccounts[activeUser]['userTasks'];
     let todo = user.find((item) => item.id === cards);
     if (todo.priority == 'Urgent') {
-        insertUrgent()
+        insertPriorityField('Urgent', 'Medium', 'Low')
     } else if (todo.priority == 'Medium') {
-        insertMedium()
+        insertPriorityField('Medium', 'Urgent', 'Low')
     } else {
-        insertLow()
+        insertPriorityField('Low', 'Urgent', 'Medium')
     }
 }
 

@@ -322,76 +322,18 @@ async function renderfilter(search, j) {
 }
 
 
-/**
- * Render search HTML
- * 
- * @param {object} userTasks 
- * @param {string} search 
- * @param {string} cards 
- */
 function renderFilterHtml(userTasks, search, cards) {
-    renderFilterHtmlToDo(userTasks, search, cards);
-    renderFilterHtmlInProgress(userTasks, search, cards);
-    renderFilterHtmlAwaitingFeedback(userTasks, search, cards);
-    renderFilterHtmlDone(userTasks, search, cards);
+    renderFilterHtmlByCategory(userTasks, search, cards, 'To Do', 'toDoContent');
+    renderFilterHtmlByCategory(userTasks, search, cards, 'In progress', 'inProgressContent');
+    renderFilterHtmlByCategory(userTasks, search, cards, 'Awaiting Feedback', 'awaitingFeedbackContent');
+    renderFilterHtmlByCategory(userTasks, search, cards, 'Done', 'doneContent');
 }
 
-
-/**
- * Render search HTML To Do
- * 
- * @param {object} userTasks 
- * @param {string} search 
- * @param {string} cards 
- */
-function renderFilterHtmlToDo(userTasks, search, cards) {
-    let title = cards == 'To Do' && userTasks['title'].toLowerCase().includes(search);
-    let text = cards == 'To Do' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) 
-        document.getElementById('toDoContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-}
-
-
-/**
- * Render search HTML in progress
- * 
- * @param {object} userTasks 
- * @param {string} search 
- * @param {string} cards 
- */
-function renderFilterHtmlInProgress(userTasks, search, cards) {
-    let title = cards == 'In progress' && userTasks['title'].toLowerCase().includes(search);
-    let text = cards == 'In progress' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) 
-        document.getElementById('inProgressContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-}
-
-
-/**
- * Render search HTML Awaiting Feedback
- * 
- * @param {object} userTasks 
- * @param {string} search 
- * @param {string} cards 
- */
-function renderFilterHtmlAwaitingFeedback(userTasks, search, cards) {
-    let title = cards == 'Awaiting Feedback' && userTasks['title'].toLowerCase().includes(search);
-    let text = cards == 'Awaiting Feedback' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) 
-        document.getElementById('awaitingFeedbackContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
-}
-
-
-/**
- * Render search HTML Done
- * 
- * @param {object} userTasks 
- * @param {string} search 
- * @param {string} cards 
- */
-function renderFilterHtmlDone(userTasks, search, cards) {
-    let title = cards == 'Done' && userTasks['title'].toLowerCase().includes(search);
-    let text = cards == 'Done' && userTasks['description'].toLowerCase().includes(search);
-    if (title || text) 
-        document.getElementById('doneContent').innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks), loadForUpdateHTML(userTasks);
+function renderFilterHtmlByCategory(userTasks, search, cards, category, containerId) {
+    let title = cards == category && userTasks['title'].toLowerCase().includes(search);
+    let text = cards == category && userTasks['description'].toLowerCase().includes(search);
+    if (title || text) {
+        document.getElementById(containerId).innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks);
+        loadForUpdateHTML(userTasks);
+    }
 }

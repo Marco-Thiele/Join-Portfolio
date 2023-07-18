@@ -1,19 +1,33 @@
 let activeUser;
+let loginCheckedBox;
 
+/**
+ * load data
+ * 
+ * @param {String} id 
+ */
 async function init(id) {
   await includeHTML();
   highlightSelectedNav(id);
   await loadUserData();
   changeProfileImg();
-  //await backend.deleteItem('tasks');
 }
 
+
+/**
+ * Load user data
+ * 
+ */
 async function loadUserData() {
   await loadUserAccountsFromBackend();
   loadActiveUserLocal();
   await loadTasksFromBackend()
 }
 
+/**
+ * Change profile image
+ * 
+ */
 function changeProfileImg() {
   let userInitials = userAccounts[activeUser]['userInitials'];
   let userColor = userAccounts[activeUser]['userColor'];
@@ -22,32 +36,39 @@ function changeProfileImg() {
   document.getElementById('profile-img').style.backgroundColor = userColor;
 }
 
+/**
+ * Show log out 
+ * 
+ */
 function showLogOut(){
-
   if (window.innerWidth <801) {
     document.getElementById('help').style.display = '';
     document.getElementById('legal-notice-').style.display = '';
     setTimeout(() => {
       document.getElementById('help').style.display = 'none';
       document.getElementById('legal-notice-').style.display = 'none';
-  }
-      , 3000);
-    
+  }, 3000);
   }
   document.getElementById('log-out').style.display = '';
-
   setTimeout(() => {
     document.getElementById('log-out').style.display = 'none';;
-}
-    , 3000);
+}, 3000);
 }
 
+
+/**
+ * reset local storage item 
+ * 
+ */
 function resetT(){
   localStorage.setItem('t', false);
 }
 
 
-let loginCheckedBox;
+/**
+ * change image for login checkbox
+ * 
+ */
 function loginCheckbox() {
   if (loginCheckedBox) {
     document.getElementById("loginCheckbox").src = "./assets/img/unchecked.png";
@@ -58,6 +79,12 @@ function loginCheckbox() {
   }
 }
 
+
+/**
+ * Set a color for each user
+ * 
+ * @returns color
+ */
 function randomUserColor() {
   let r = Math.floor(Math.random() * 256);
   let g = Math.floor(Math.random() * 256);
@@ -66,7 +93,10 @@ function randomUserColor() {
   return rgbColor;
 }
 
-
+/**
+ * Includes Html
+ * 
+ */
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -84,6 +114,7 @@ async function includeHTML() {
 
 /**
  * loading user accounts from backend
+ * 
  */
 async function loadUserAccountsFromBackend() {
   await downloadFromServer();
@@ -91,25 +122,47 @@ async function loadUserAccountsFromBackend() {
 }
 
 
+/**
+ * loading Tasks accounts from backend
+ * 
+ */
 async function loadTasksFromBackend() {
   await downloadFromServer();
   tasks = JSON.parse(backend.getItem('tasks')) || [];
 }
 
+
+/**
+ * Save accounts to backend
+ * 
+ */
 async function saveUserAccountsToBackend() {
   await backend.setItem('userAccounts', JSON.stringify(userAccounts));
 }
 
+
+/**
+ * Save tasks to backend
+ * 
+ */
 async function saveTasksToBackend() {
   await backend.setItem('tasks', JSON.stringify(tasks));
 }
 
+/**
+ * load active user
+ * 
+ */
 function loadActiveUserLocal() {
   activeUser = localStorage.getItem('activeUser');
 }
 
 
-
+/**
+ * Highlighted the selected navbar
+ * 
+ * @param {Number} id 
+ */
 function highlightSelectedNav(id) {
   setTimeout(() => {
     document.getElementById(`${id}`).classList.add("selected");
@@ -118,6 +171,7 @@ function highlightSelectedNav(id) {
 
 /**
  * get Username initials
+ * 
  */
 function userNameInitial(name) {
   let initials = "";

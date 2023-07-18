@@ -10,8 +10,7 @@ let categoryList;
 let choseContacts = [];
 let l = false;
 let j = false;
-let p = false
-
+let p = false;
 let priority;
 let priorityImg;
 let addsubtask;

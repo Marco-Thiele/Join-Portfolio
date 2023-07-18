@@ -25,6 +25,7 @@ async function addTaskOnSubPages() {
     await addTask();
     if (p == true) {
         clearAllFields();
+       
     }
 }
 
@@ -42,9 +43,22 @@ function clearAllFields(){
     closeDropDownAssignTo();
     choseContacts = [];
     subTasks = [];
+    checkLocation();
     updateHTML();
     selectedSubtasks = [];
     p = false;
+}
+
+/**
+ * Checks The window location 
+ * 
+ */
+function checkLocation(){
+    if (window.location == "https://marco-thiele.developerakademie.net/Join-Portfolio/contacts.html") {
+        setTimeout(function () {
+        window.location = "./board.html";
+    }, 1000)
+    }
 }
 
 

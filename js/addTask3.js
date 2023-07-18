@@ -68,6 +68,7 @@ async function deleteThisCategory(i) {
 /**
  * delete not the category and render category again
  * 
+ * 
  */
 function notDeleteThisCategory() {
     document.getElementById('deleteCategory').innerHTML = '';
@@ -82,6 +83,7 @@ function notDeleteThisCategory() {
 /**
  *  This function set Category InputField to default as in beginning with a placholder and a drop down Button
  *  
+ * 
  */
 function unsetCategoryInputField() {
     rejectNewCategory();
@@ -90,6 +92,7 @@ function unsetCategoryInputField() {
 
 /**
  * This function shows Category Select Menu - toggle at clicking on the dropdown Button 
+ * 
  * 
  */
 function dropDown() {
@@ -104,6 +107,7 @@ function dropDown() {
 
 /**
  * This function shows the Category Select Menu
+ * 
  * 
  */
 function showDropdownCategory() {
@@ -137,6 +141,7 @@ function chooseCategory(index, category, color) {
 /**
  *  This function allows to insert in the category input field for new category input 
  * 
+ * 
  */
 function newCategoryInput() {
     closeDropdownCategory();
@@ -153,6 +158,7 @@ function newCategoryInput() {
 /**
  * 
  *  This function gets the background color for the new category color dot
+ * 
  */
 
 function newColor(color) {
@@ -163,6 +169,7 @@ function newColor(color) {
 
 /**
  * The function allows to input new category name in the Category Array and input the color for the color Array
+ * 
  * 
  */
 async function addNewCategory() {
@@ -210,6 +217,7 @@ async function saveNewCategory(newCategory) {
 /**
  *  The function returns the Category Container to the default 
  * 
+ * 
  */
 function rejectNewCategory() {
     document.getElementById('buttonDropDown').style.display = "flex";
@@ -226,6 +234,7 @@ function rejectNewCategory() {
 /**
  *  This function decides with the priority background color which Priority has been activated and get all the inputs of the one priority box
  * 
+ * 
  */
 function getPriorityInformation() {
     if (document.getElementById('prioUrgentBox').classList.contains('bgUrgent')) {
@@ -241,8 +250,9 @@ function getPriorityInformation() {
 /**
  * Set the Priority to urgent, medium or low
  * 
+ * 
  */
-function getPriorityInformationField(priorityBoxId, priorityImgId, priorityText, priorityImgSrc) {
+function getPriorityInformationField(priorityBoxId, priorityImgId, priorityImgSrc) {
     p = true;
     priority = document.getElementById(priorityBoxId).innerText;
     priorityImg = document.createElement(priorityImgId);
@@ -253,106 +263,36 @@ function getPriorityInformationField(priorityBoxId, priorityImgId, priorityText,
 /**
  * This function changes the Text and Image color to white of the Priority Urgent button, the other buttons (Prio Medium and Prio Low) change to their original color 
  * 
+ * 
  */
-function insertUrgent() {
-    document.getElementById('prioUrgentBox').classList.add('bgTextWhite');
-    document.getElementById('prioMediumBox').classList.remove('bgTextWhite');
-    document.getElementById('prioLowBox').classList.remove('bgTextWhite');
-    document.getElementById('prioUrgentImg').classList.add("Img-white");
-    document.getElementById('prioMediumImg').classList.remove("Img-white");
-    document.getElementById('prioLowImg').classList.remove("Img-white");
-    toggleInsertUrgent();
-    document.getElementById('prioUrgentBox').classList.toggle('bgUrgent');
-    document.getElementById('prioMediumBox').classList.remove('bgMedium');
-    document.getElementById('prioLowBox').classList.remove('bgLow');
+function insertPriorityAddTask(priority, nonPriority1, nonPriority2) {
+    document.getElementById(`prio${priority}Box`).classList.add('bgTextWhite');
+    document.getElementById(`prio${nonPriority1}Box`).classList.remove('bgTextWhite');
+    document.getElementById(`prio${nonPriority2}Box`).classList.remove('bgTextWhite');
+    document.getElementById(`prio${priority}Img`).classList.add("Img-white");
+    document.getElementById(`prio${nonPriority1}Img`).classList.remove("Img-white");
+    document.getElementById(`prio${nonPriority2}Img`).classList.remove("Img-white");
+    toggleInsertPriority(priority);
+    document.getElementById(`prio${priority}Box`).classList.toggle(`bg${priority}`);
+    document.getElementById(`prio${nonPriority1}Box`).classList.remove(`bg${nonPriority1}`);
+    document.getElementById(`prio${nonPriority2}Box`).classList.remove(`bg${nonPriority2}`);
 }
 
 
 /**
- * This function toggles the white Text and Image of Priority Urgent to original color
+ * This function toggles the white Text and Image of Priority field
+ * 
  * 
  */
-function toggleInsertUrgent() {
-    document.getElementById("prioUrgentBox").addEventListener("click", function handleClick(event) {
-        const hasClass = event.target.classList.contains('bgUrgent');
+function toggleInsertPriority(priority) {
+    document.getElementById(`prio${priority}Box`).addEventListener("click", function handleClick(event) {
+        const hasClass = event.target.classList.contains(`bg${priority}`);
         if (hasClass) {
-            document.getElementById('prioUrgentBox').classList.add('bgTextWhite');
-            document.getElementById('prioUrgentImg').classList.add("Img-white");
+            document.getElementById(`prio${priority}Box`).classList.add('bgTextWhite');
+            document.getElementById(`prio${priority}Img`).classList.add("Img-white");
         } else {
-            document.getElementById('prioUrgentBox').classList.remove('bgTextWhite');
-            document.getElementById('prioUrgentImg').classList.remove("Img-white");
-        }
-    });
-}
-
-
-/**
- * This function changes the Text- and Image-color to white of the Priority Medium button, other buttons (Prio Urgent and Prio Low) change to their original color 
- * 
- */
-function insertMedium() {
-    document.getElementById('prioMediumBox').classList.add('bgTextWhite');
-    document.getElementById('prioUrgentBox').classList.remove('bgTextWhite');
-    document.getElementById('prioLowBox').classList.remove('bgTextWhite');
-    document.getElementById('prioLowImg').classList.remove("Img-white");
-    document.getElementById('prioUrgentImg').classList.remove("Img-white");
-    document.getElementById('prioMediumImg').classList.add("Img-white");
-    toggleInsertMedium();
-    document.getElementById('prioMediumBox').classList.toggle('bgMedium');
-    document.getElementById('prioUrgentBox').classList.remove('bgUrgent');
-    document.getElementById('prioLowBox').classList.remove('bgLow');
-}
-
-
-/**
- * This function toggles the white Text and Image of Priority Medium to original color
- * 
- */
-function toggleInsertMedium() {
-    document.getElementById("prioMediumBox").addEventListener("click", function handleClick(event) {
-        const hasClass = event.target.classList.contains('bgMedium');
-        if (hasClass) {
-            document.getElementById('prioMediumBox').classList.add('bgTextWhite');
-            document.getElementById('prioMediumImg').classList.add("Img-white");
-        } else {
-            document.getElementById('prioMediumBox').classList.remove('bgTextWhite');
-            document.getElementById('prioMediumImg').classList.remove("Img-white");
-        }
-    });
-}
-
-
-/**
- * This function changes the Text- and Image-color to white of the Priority low button, other buttons (Prio Urgent and Prio Medium) change to their original color 
- * 
- */
-function insertLow() {
-    document.getElementById('prioLowBox').classList.add('bgTextWhite');
-    document.getElementById('prioUrgentBox').classList.remove('bgTextWhite');
-    document.getElementById('prioMediumBox').classList.remove('bgTextWhite');
-    document.getElementById('prioLowImg').classList.add("Img-white");
-    document.getElementById('prioMediumImg').classList.remove("Img-white");
-    document.getElementById('prioUrgentImg').classList.remove("Img-white");
-    toggleInsertLow();
-    document.getElementById('prioLowBox').classList.toggle('bgLow');
-    document.getElementById('prioUrgentBox').classList.remove('bgUrgent');
-    document.getElementById('prioMediumBox').classList.remove('bgMedium');
-}
-
-
-/**
- * This function toggles the white Text and Image of Priority Low to original color
- * 
- */
-function toggleInsertLow() {
-    document.getElementById("prioLowBox").addEventListener("click", function handleClick(event) {
-        const hasClass = event.target.classList.contains('bgLow');
-        if (hasClass) {
-            document.getElementById('prioLowBox').classList.add('bgTextWhite');
-            document.getElementById('prioLowImg').classList.add("Img-white");
-        } else {
-            document.getElementById('prioLowBox').classList.remove('bgTextWhite');
-            document.getElementById('prioLowImg').classList.remove("Img-white");
+            document.getElementById(`prio${priority}Box`).classList.remove('bgTextWhite');
+            document.getElementById(`prio${priority}Img`).classList.remove("Img-white");
         }
     });
 }

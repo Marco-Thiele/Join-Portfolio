@@ -2,11 +2,13 @@ let currentDraggedElement;
 let loadOverlay = false;
 let loadCircle = false;
 let choosedContact = [];
-let toDoCount= [];
-let inProgressCount= [];
-let awaitingCount= [];
-let doneCount= [];
 let filterCount = 0;
+let cardCounts = {
+    toDo: 0,
+    inProgress: 0,
+    awaitingFeedback: 0,
+    done: 0
+};
 
 
 function onloadBoard() {
@@ -42,23 +44,25 @@ async function updateHTML() {
  * @param {object} cards 
  * @param {object} userTasks 
  */
-function renderHTML(cards, userTasks) {
+/*function renderHTML(cards, userTasks) {
     updateHTMLToDo(cards, userTasks);
     updateHTMLInProgress(cards, userTasks);
     updateHTMLAwaitingFeedback(cards, userTasks);
     updateHTMLDone(cards, userTasks);
 }
-
+*/
 
 /**
  * emptying arrays
  * 
  */
 function emptyArrays(){
-    toDoCount = [];
-    inProgressCount = [];
-    awaitingCount = [];
-    doneCount = [];
+    cardCounts = {
+        toDo: 0,
+        inProgress: 0,
+        awaitingFeedback: 0,
+        done: 0
+    };
 }
 
 
@@ -67,13 +71,13 @@ function emptyArrays(){
  * 
  */
 function updateHTMLNon(){
-    if (toDoCount.length == 0) 
+    if (cardCounts.toDo.length == 0) 
         document.getElementById('toDoContent').innerHTML = `<div class="no-cards"> No Task in To Do </div>`;
-    if (inProgressCount.length == 0) 
+    if (cardCounts.inProgress.length == 0) 
         document.getElementById('inProgressContent').innerHTML = `<div class="no-cards"> No Task in Progress </div>`;
-    if (awaitingCount.length == 0) 
+    if (cardCounts.awaitingFeedback.length == 0) 
         document.getElementById('awaitingFeedbackContent').innerHTML = `<div class="no-cards"> No Task in Awaiting Feedback </div>`;
-    if (doneCount.length == 0) 
+    if (cardCounts.done.length == 0) 
         document.getElementById('doneContent').innerHTML = `<div class="no-cards"> No Task in Done </div>`;
 }
 
@@ -90,6 +94,9 @@ function updateHTMLToDo(cards, userTasks) {
         toDoCount ++;
     }
 }
+
+
+
 
 
 /**
@@ -133,7 +140,22 @@ function updateHTMLDone(cards, userTasks) {
     }
 }
 
+function updateHTMLContant(cards, userTasks, cardElementId, content, cardCount) {
+    if (cards === cardElementId) {
+        const cardContentElement = document.getElementById(content);
+        cardContentElement.innerHTML += generateHTML1(userTasks) + generateHTML2(userTasks);
+        loadForUpdateHTML(userTasks);
+        cardCount++;
+    }
+}
 
+// Funktion, die alle Karten zusammenführt und aktualisiert
+function renderHTML(cards, userTasks) {
+    updateHTMLContant(cards, userTasks, 'To Do', 'toDoContent', cardCounts.toDo);
+    updateHTMLContant(cards, userTasks, 'In progress', 'inProgressContent', cardCounts.inProgress);
+    updateHTMLContant(cards, userTasks, 'Awaiting Feedback', 'awaitingFeedbackContent', cardCounts.awaitingFeedback);
+    updateHTMLContant(cards, userTasks, 'Done', 'doneContent', cardCounts.done);
+}
 // 
 /**
  * Load all informatoins for tasks
